@@ -23,11 +23,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         }
     }
 
-    @Override
-    public int compareTo(Chromosome other) {
 
-        return 0;
-    }
 
 
     // Crossover Method: Takes in 2 Chromosomes and Combines it to make an New Chromosome
@@ -49,19 +45,81 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         return child;
     }
 
-    /**
+    // Mutate Method: Generates random numbers for every gene the person has
+    //                If the number is equal to 1, then it mutates it
+    public void mutate(){
+        Random rng = new Random();
 
-    public void mutate{
-        // make a current change to the chromosome
+        for (Item gene: this){
+            if (rng.nextInt(10) == 1){
+                if(gene.isIncluded()){
+                    gene.setIncluded(false);
+                }
+                else{
+                    gene.setIncluded(true);
+                }
+            }
+        }
     }
+
+
 
     public int getFitness(){
         // giving use a measure of how good the items are
         // otherwise it's the total value
         // Sum of all the included items weights are greater than 10
+        int total_fitness = 0;
+
+        // Gets the sum of all the included items' weights
+        for (Item item: this){
+            if(item.isIncluded()){
+                total_fitness += item.measuring_fitness();
+            }
+        }
+
+        // If the sum of all the weights is greater than 10, then the fitness is 0
+        if (total_fitness > 10){
+            return 0;
+        }
+        else{
+            return total_fitness;
+        }
     }
 
-    **/
+    // CompareTo Method: Compares the Total Fitness of 2 Chromosomes
+    @Override
+    public int compareTo(Chromosome other) {
+
+        // Returns 0 if the fitness is the same
+        if(this.getFitness() == other.getFitness()){
+            return 0;
+        }
+
+        // Returns +1 if this fitness is less than the other fitness
+        else if (this.getFitness() < other.getFitness()){
+            return 1;
+        }
+
+        // Returns -1 if the other fitness is greater than this fitness
+        else{
+            return -1;
+        }
+
+    }
+
+
+
+    public String toString(){
+
+        String str = null;
+        for (Item gene: this){
+            if (gene.isIncluded()){
+                str += gene;
+            }
+        }
+
+        return str;
+    }
 
 
 

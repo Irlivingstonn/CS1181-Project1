@@ -30,8 +30,6 @@ public class GeneticAlgorithm {
 
     public static void initializePopulation(ArrayList<Item> items, int populationSize){ // 10 = popualation size      // ArrayList<Chromosome>
 
-
-
         Chromosome parent1 = new Chromosome(items);
         Chromosome parent2 = new Chromosome(items);
 
