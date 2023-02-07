@@ -62,18 +62,17 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         }
     }
 
-
-
+    // GetFitness Method: Adds all Included Items' weights, if it's greater than 10 then the fitness is 0
+    //                    Otherwise the fitness is the included items' weights
     public int getFitness(){
-        // giving use a measure of how good the items are
-        // otherwise it's the total value
-        // Sum of all the included items weights are greater than 10
+        // Declaring Variables
         int total_fitness = 0;
 
         // Gets the sum of all the included items' weights
         for (Item item: this){
             if(item.isIncluded()){
-                total_fitness += item.measuring_fitness();
+
+                total_fitness += item.getWeight();
             }
         }
 
@@ -107,16 +106,17 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
 
     }
 
-
-
+    // ToString Method: Displays the name, weight and value of all included items of this chromosome
     public String toString(){
+        String str = "";
 
-        String str = null;
         for (Item gene: this){
             if (gene.isIncluded()){
-                str += gene;
+                str += (gene + "\n");
             }
         }
+
+        str += this.getFitness();
 
         return str;
     }

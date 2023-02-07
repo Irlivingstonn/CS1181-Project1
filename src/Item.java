@@ -50,16 +50,4 @@ public class Item {
     }
 
 
-
-    public int measuring_fitness(){
-
-        if (this.weight > 10){
-            return 0;
-        }
-        else{
-            return this.value;
-        }
-    }
-
-
 }

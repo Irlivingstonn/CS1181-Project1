@@ -33,7 +33,7 @@ public class GeneticAlgorithm {
         Chromosome parent1 = new Chromosome(items);
         Chromosome parent2 = new Chromosome(items);
 
-        parent1.crossover(parent2);
+        System.out.println(parent1.toString());
 
 
     }
