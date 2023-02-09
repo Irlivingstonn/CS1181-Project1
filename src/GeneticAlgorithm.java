@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class GeneticAlgorithm {
 
@@ -29,12 +27,65 @@ public class GeneticAlgorithm {
     }
 
     public static void initializePopulation(ArrayList<Item> items, int populationSize){ // 10 = popualation size      // ArrayList<Chromosome>
+        // ---------- DECLARING ----------
 
-        Chromosome parent1 = new Chromosome(items);
-        Chromosome parent2 = new Chromosome(items);
+        ArrayList<Chromosome> initial_population = new ArrayList<>(populationSize);
+        ArrayList<Chromosome> next_generation = new ArrayList<>();
+        int END_PROGRAM = 20;
+        int counter = 0;
 
-        System.out.println(parent1.toString());
+        // ---------- INPUT ----------
+        // Creates 10 random individuals to serve as the initial population
+        for(Integer person = 0; person < populationSize; person++){
+            initial_population.add(new Chromosome(items));
+        }
 
+        while(counter <= END_PROGRAM){
+
+            // Adds current population to next generation
+            for (Chromosome person: initial_population){
+                next_generation.add(person);
+            }
+
+            for (Integer person = 0; person < initial_population.size(); person++){
+                // Shuffles the Initial Population List
+                Collections.shuffle(initial_population);
+
+
+                // Chooses the first element of the list to crossover with another person
+                // to make the child
+                Chromosome child = next_generation.get(person).crossover(initial_population.get(0));
+
+
+                // Replaces the Next Generation Person with the Child
+                next_generation.add(child);
+            }
+
+
+            // Takes 10 percent of the population and mutates the genes
+            for (Integer mutation = 0; mutation<(next_generation.size() * 0.1); mutation++){
+
+                Collections.shuffle(next_generation);
+                next_generation.get(0).mutate();
+
+            }
+
+            // Sorts the Next Generation based on the fitness
+            Collections.sort(next_generation);
+
+            // Clears out the old population
+            initial_population.clear();
+
+            // Adds the top 10 of the next generation back into the population
+            for(Integer person = 0; person < populationSize; person++){
+                initial_population.add(next_generation.get(person));
+            }
+
+            counter += 1;
+        }
+
+        System.out.println("Fittest Individual:");
+        System.out.println(next_generation.get(0));
 
     }
 

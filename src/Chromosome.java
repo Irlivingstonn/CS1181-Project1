@@ -64,9 +64,9 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
 
     // GetFitness Method: Adds all Included Items' weights, if it's greater than 10 then the fitness is 0
     //                    Otherwise the fitness is the included items' weights
-    public int getFitness(){
+    public double getFitness(){
         // Declaring Variables
-        int total_fitness = 0;
+        double total_fitness = 0.0;
 
         // Gets the sum of all the included items' weights
         for (Item item: this){
